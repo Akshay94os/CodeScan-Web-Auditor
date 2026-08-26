@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>CodeScan Auditor</title><style>body{font-family:sans-serif;background:#0f172a;color:#fff;padding:2rem;}textarea{width:100%;height:150px;background:#1e293b;color:#fff;border:1px solid #334155;}button{padding:8px 16px;background:#0284c7;color:#fff;border:none;cursor:pointer;margin-top:8px;}.card{background:#1e293b;padding:1rem;margin:10px 0;border-radius:6px;}</style></head>
+<body>
+  <h1>CodeScan Static Analysis Engine</h1>
+  <form method="POST">
+    {% csrf_token %}
+    <input name="title" placeholder="Snippet Title" required style="width:100%;padding:8px;margin-bottom:8px;"><br>
+    <textarea name="source_code" placeholder="Paste python code to scan..." required></textarea><br>
+    <button type="submit">Run AST Audit</button>
+  </form>
+  <h2>Previous Audits</h2>
+  {% for scan in scans %}
+    <div class="card">
+      <h3>{{ scan.title }} (Errors: {{ scan.detected_errors }})</h3>
+      <pre><code>{{ scan.source_code }}</code></pre>
+    </div>
+  {% endfor %}
+</body>
+</html>
